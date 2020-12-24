@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+参考：https://qiita.com/pica/items/f801c74848f748f76b58
+
+Configuration
+  log4j2自身のログを出力したいときは、statusにログレベルを設定する。
+  status="debug"
+
+  通常はオフにする
+  status="off"
+ -->
+<Configuration status="off">
+
+	<!-- プロパティ定義  -->
+	<Properties>
+		<Property name="base">.\log</Property>
+	</Properties>
+
+	<!--  -->
+	<Appenders>
+		<File name="File" fileName="${base}\log.txt">
+			<PatternLayout pattern="▲%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+		<File name="FileDebug" fileName="${base}\log-debug.txt">
+			<PatternLayout pattern="●%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<ThresholdFilter level="debug" />
+		</File>
+		<File name="FileTrace" fileName="${base}\log-trace.txt">
+			<PatternLayout pattern="■%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<ThresholdFilter level="trace" />
+		</File>
+
+		<!--
+			コンソール出力
+			target…標準出力設定 省略されるとtarget="SYSTEM_OUT"と同じ
+			target="SYSTEM_OUT" … 標準出力
+			target="SYSTEM_ERR" … 標準エラー出力
+		 -->
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %highlight{%p - %m}{TRACE=blue}%n" />
+		</Console>
+<!-- 		<RollingFile name="File" fileName="app.log" -->
+<!-- 			filePattern="app-%d{yyyy-MM-dd}-%i.gz"> -->
+<!-- 			<PatternLayout pattern="${FileLoglayout}" /> -->
+<!-- 			<Policies> -->
+<!-- 				<SizeBasedTriggeringPolicy size="20 MB" /> -->
+<!-- 			</Policies> -->
+<!-- 			<DefaultRolloverStrategy max="3" /> -->
+<!-- 		</RollingFile> -->
+	</Appenders>
+
+	<Loggers>
+		<Logger name="a.b.c1" level="error" />
+		<Logger name="a.b.c2" level="debug" />
+		<Logger name="a.b.c3" level="trace" />
+		<Root level="info">
+			<AppenderRef ref="STDOUT" level="info"/>
+			<AppenderRef ref="File" />
+			<AppenderRef ref="FileDebug" />
+			<AppenderRef ref="FileTrace" />
+		</Root>
+	</Loggers>
+
+</Configuration>
