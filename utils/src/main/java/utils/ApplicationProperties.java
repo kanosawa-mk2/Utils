@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -13,12 +14,10 @@ import java.util.Properties;
  *
  */
 public enum ApplicationProperties {
-	/** DB接続文字列 */
-	docbase_name,
 	/** 出力先フォルダ */
-	admin_user_name,
+	user_name,
 	/** CSV エンコード */
-	admin_user_password,
+	user_password,
 	;
 
 	/** 値. */
@@ -33,7 +32,7 @@ public enum ApplicationProperties {
 	 */
 	static {
 		try (InputStream is = ApplicationProperties.class.getResourceAsStream(FILE_PATH);
-				InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+				InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 				BufferedReader reader = new BufferedReader(isr)) {
 			Properties result = new Properties();
 			// Properties#load() で渡す Reader オブジェクトを UTF-8 エンコーディング指定して生成した

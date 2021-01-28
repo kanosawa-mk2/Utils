@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,22 +26,6 @@ public class ApplicationProperties2 {
 
 	/** コンストラクタ. */
 	private ApplicationProperties2() {
-	}
-
-	/**
-	 * DB接続リトライ回数
-	 * @return リトライ回数
-	 */
-	public static int getDbConnLoopCount() {
-		return Integer.parseInt(ApplicationPropertiesValue.DB_CONN_LOOP_COUNT.value);
-	}
-
-	/**
-	 * DB接続リトライ間隔
-	 * @return リトライ間隔
-	 */
-	public static long getDbConnWaitInterval() {
-		return Long.parseLong(ApplicationPropertiesValue.DB_CONN_WAIT_INTERVAL.value);
 	}
 
 	/**
@@ -79,101 +64,6 @@ public class ApplicationProperties2 {
 	 *
 	 */
 	public enum ApplicationPropertiesValue {
-		/** PDF生成フォルダパス */
-		PDF_GENERAT_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** PDFマージフォルダパス */
-		PDF_MERGE_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** オーバレイフォルダパス */
-		IMAGE_INSERT_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** 分割フォルダパス */
-		PDF_DIVISION_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** ページ数取得フォルダパス */
-		GET_PDF_PAGE_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** 画像/テキスト判定フォルダパス */
-		PDF_TEXT_COUNT_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** PDF変換元ファイルを配置する共有フォルダパス */
-		PDF_IN_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** 投入ファイルエラーを配置する共有フォルダパス */
-		PDF_ERROR_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** EOFファイル名 */
-		EOF_FILE_NAME {
-			@Override
-			protected void check() throws Exception {
-				required();
-			}
-		},
-		/** ロックファイルパス */
-		LOCK_FILE_PATH {
-			@Override
-			protected void check() throws Exception {
-				required();
-				existFileOrFolder();
-			}
-		},
-		/** DB接続失敗時にリトライする回数 */
-		DB_CONN_LOOP_COUNT {
-			@Override
-			protected void check() throws Exception {
-				required();
-				checkNum();
-			}
-		},
-		/** DB接続失敗時にリトライするまで待機する時間 */
-		DB_CONN_WAIT_INTERVAL {
-			@Override
-			protected void check() throws Exception {
-				required();
-				checkNum();
-			}
-		},
 		/** ファイル移動失敗時にリトライする回数 */
 		FILE_MOVE_LOOP_COUNT {
 			@Override
@@ -215,7 +105,7 @@ public class ApplicationProperties2 {
 		public static void initializ() {
 			Properties prop = new Properties();
 			try (InputStream is = ApplicationProperties.class.getResourceAsStream(SYSTEM_PROPERTIES_FILE_PATH);
-					InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+					InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
 					BufferedReader reader = new BufferedReader(isr)) {
 				prop.load(reader);
 			} catch (IOException e) {
