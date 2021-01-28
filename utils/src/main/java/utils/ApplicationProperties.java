@@ -14,9 +14,9 @@ import java.util.Properties;
  *
  */
 public enum ApplicationProperties {
-	/** 出力先フォルダ */
+	/** ユーザ名 */
 	user_name,
-	/** CSV エンコード */
+	/** パスワード */
 	user_password,
 	;
 
