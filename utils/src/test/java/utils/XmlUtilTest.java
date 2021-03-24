@@ -25,6 +25,8 @@ class XmlUtilTest {
 			System.out.println(XmlUtil.getElementContent(patternLayoutElement));
 		}
 
+		XmlUtil.getElementByTagName(appendersElement, "File");
+
 	}
 
 }
