@@ -29,6 +29,9 @@ public class BusinessControl extends BusinessControlBase {
 			
 			
 			System.out.println(dao.selectName(conn, 1));
+			
+			
+			dao.selectAll(conn).forEach(x->System.out.println( x.toString()));
 		}
 		return true;
 	}
