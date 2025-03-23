@@ -42,6 +42,9 @@ mavenやgradle
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
+					<webApp>
+						<contextPath>/jetty-webapp</contextPath>
+					</webApp>
 					<httpConnector>
 						<port>8989</port>
 					</httpConnector>
@@ -58,3 +61,7 @@ eclipseから起動する場合
 
 pom.xmlを右クリック ＞ 実行 ＞ Mavenビルド...  
 ゴールに「jetty:run」を入力し実行
+
+③　以下のURLにアクセスする。
+
+http://localhost:8989/jetty-webapp

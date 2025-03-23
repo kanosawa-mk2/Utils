@@ -8,6 +8,7 @@
 <body>
 	<h2>サーブレットサンプル集</h2>
 
-	<a href="jsp/01_zipDL.jsp" >ZIPダウンロードサンプル</a></p>
+	<a href="<%= request.getContextPath() %>/HelloWorld" >HelloWorld</a></p>
+	<a href="<%= request.getContextPath() %>/jsp/01_zipDL.jsp" >ZIPダウンロードサンプル</a></p>
 </body>
 </html>
